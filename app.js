@@ -48,7 +48,7 @@ if(process.env.PORT){
   app.listen(process.env.PORT , function(){console.log('Server started')});
 }
 else {
-  app.listen(3030 , function(){console.log('Server started on port 3030')});
+  app.listen(3000 , function(){console.log('Server started on port 3000')});
   
 }
 
