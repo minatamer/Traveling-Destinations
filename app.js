@@ -97,9 +97,16 @@ var wantlist = [];
 var loggedin = false;
 var name = '';
 
-app.post('/',function(req, res){   //logging in
+app.post('/',function(req, res){  
   var x = req.body.username;
   var y = req.body.password;
+  if(x == 'admin' && y=='admin'){
+    console.log("Welcome back Admin!");
+    req.session.loggedin=true;
+    req.session.wantlist=[];
+    return res.redirect("/home"); 
+
+  }
   MongoClient.connect("mongodb://127.0.0.1" , function (err , client){
   if(err) throw err;
   var db = client.db('myDB');
@@ -107,13 +114,6 @@ app.post('/',function(req, res){   //logging in
     if (x =="" || y==""){
       let alert = require('alert');
       alert("Cant enter an empty username or password");
-    }
-    else if(x == 'admin' && y=='admin'){
-      console.log("Welcome back Admin!");
-      req.session.loggedin=true;
-      req.session.wantlist=[];
-      return res.redirect("/home"); 
-
     }
     
     else if (result == null){
